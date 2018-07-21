@@ -93,12 +93,9 @@
       this.wb = XLSX.readFile(`${__dirname}/User.xlsx`)
       this.ws = this.wb.Sheets[this.wb.SheetNames[0]]
       this.data = XLSX.utils.sheet_to_json(this.ws)
-      // data[0]['Table 1'] = 'bianhao'
-      // wb.Sheets[wb.SheetNames[0]] = XLSX.utils.json_to_sheet(data)
-      // var result = XLSX.writeFile(wb, `${__dirname}/myFile.xlsx`)
-      console.log(this.data[0]['用户名'])
       this.projectName = this.$store.state.Base.projectName
       this.userName = this.$store.state.Base.userName
+      this.$store.commit('setEvlMethod', this.evlMethods[0])
     },
     methods: {
       onTipClick () {
@@ -107,63 +104,69 @@
       },
       onEvlClick (type) {
         this.$store.commit('setEvlType', type)
-        if (this.isValidated()) {
-          this.$router.push('/mainPage')
-        }
+        // if (this.isValidated()) {
+        //   this.$router.push('/mainPage')
+        // }
+        this.isValidated().then((isValidated) => {
+          if (isValidated) {
+            this.$router.push('/mainPage')
+          }
+        })
       },
       currentDate () {
         return new Date().toISOString().slice(0, 10)
       },
       isValidated () {
-        if (this.projectName.trim() === '') {
-          this.$alert('项目名称为空', '提示', {
-            confirmButtonText: '确定'
-          })
-          return false
-        }
-        if (this.userName.trim() === '') {
-          this.$alert('用户名称为空', '提示', {
-            confirmButtonText: '确定'
-          })
-          return false
-        }
-        if (this.userPassword.trim() === '') {
-          this.$alert('密码为空', '提示', {
-            confirmButtonText: '确定'
-          })
-          return false
-        }
-        return this.login()
-      },
-      login () {
-        var results = this.data.filter(function (d) {
-          return d['用户名'] === this.userName
-        })
-        if (results.length > 0) {
-          var user = results[0]
-          if (user['密码'] === this.userPassword) {
-            return true
-          } else {
-            this.$alert('密码错误', '提示', {
+        var that = this
+        return new Promise(function (resolve, reject) {
+          if (that.projectName.trim() === '') {
+            that.$alert('项目名称为空', '提示', {
               confirmButtonText: '确定'
             })
-            return false
+            resolve(false)
+            return
+          } else if (that.userName.trim() === '') {
+            that.$alert('用户名称为空', '提示', {
+              confirmButtonText: '确定'
+            })
+            resolve(false)
+            return
+          } else if (that.userPassword.trim() === '') {
+            that.$alert('密码为空', '提示', {
+              confirmButtonText: '确定'
+            })
+            resolve(false)
+            return
           }
-        } else {
-          this.$confirm('没有此用户, 是否添加?', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning'
-          }).then(() => {
-            this.data.push({'用户名': this.userName, '密码': this.userPassword})
-            // write to file
-            this.wb.Sheets[this.wb.SheetNames[0]] = XLSX.utils.json_to_sheet(this.data)
-            XLSX.writeFile(this.wb, `${__dirname}/User.xlsx`)
-            return true
-          }).catch(() => {
-            return false
+          var results = that.data.filter(function (d) {
+            return d['用户名'] === that.userName
           })
-        }
+          if (results.length > 0) {
+            var user = results[0]
+            if (user['密码'] === that.userPassword) {
+              resolve(true)
+            } else {
+              that.$alert('密码错误', '提示', {
+                confirmButtonText: '确定'
+              })
+              resolve(false)
+            }
+          } else {
+            that.$confirm('没有此用户, 是否添加?', '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              type: 'warning'
+            }).then(() => {
+              that.data.push({'用户名': that.userName, '密码': that.userPassword})
+              // write to file
+              that.wb.Sheets[that.wb.SheetNames[0]] = XLSX.utils.json_to_sheet(that.data)
+              XLSX.writeFile(that.wb, `${__dirname}/User.xlsx`)
+              resolve(true)
+            }).catch((e) => {
+              resolve(false)
+            })
+          }
+        })
       }
     },
     watch: {

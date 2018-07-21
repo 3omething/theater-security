@@ -1,15 +1,17 @@
 <template>
     <el-container>
-        <el-header><div style="text-align: center; position: absolute; left: 20%; right: 20%">
+        <el-header>
+            <div style="text-align: center; position: absolute; left: 20%; right: 20%">
                 《演出安全管理体系》
             </div>
 
             <div style="float: right">
-                <at-button type="primary" hollow @click="back">返回</at-button>
+                <at-button style="float: right" type="primary" hollow @click="onExportClicked">导出</at-button>
+                <at-button style="float: right" type="primary" hollow @click="back">返回</at-button>
             </div>
         </el-header>
         <el-main style="height: 500px">
-            <table-component :data=data1 :show-filter="false">
+            <table-component :data=data1 :show-filter="false" id="pdfDom">
                 <table-column show="firstName" label="危险/潜在伤害"></table-column>
                 <table-column label="之前的风险级别">
                     <template slot-scope="row">
@@ -31,6 +33,8 @@
 </template>
 
 <script>
+    import html2Canvas from 'html2canvas'
+    import JsPDF from 'jspdf'
     export default {
       data () {
         const item = {
@@ -56,8 +60,8 @@
         this.$nextTick(function () {
           this.dataSources.forEach(function (dataSource) {
             that.data1.push({
-              firstName: dataSource[3],
-              lastName: dataSource[3],
+              firstName: dataSource['危险源'],
+              lastName: dataSource['分类一'],
               eval: [
                 { name: '可能性', value: dataSource.possibilityLevel },
                 { name: '严重性', value: dataSource.safetyLevel },
@@ -69,6 +73,37 @@
       methods: {
         back () {
           this.$router.back('/')
+        },
+        onExportClicked () {
+          this.exportPDF()
+        },
+        exportPDF () {
+          html2Canvas(document.querySelector('#pdfDom'), {
+            allowTaint: true
+          }).then(function (canvas) {
+            let contentWidth = canvas.width
+            let contentHeight = canvas.height
+            let pageHeight = contentWidth / 592.28 * 841.89
+            let leftHeight = contentHeight
+            let position = 0
+            let imgWidth = 595.28
+            let imgHeight = 592.28 / contentWidth * contentHeight
+            let pageData = canvas.toDataURL('image/jpeg', 1.0)
+            let PDF = new JsPDF('', 'pt', 'a4')
+            if (leftHeight < pageHeight) {
+              PDF.addImage(pageData, 'JPEG', 0, 0, imgWidth, imgHeight)
+            } else {
+              while (leftHeight > 0) {
+                PDF.addImage(pageData, 'JPEG', 0, position, imgWidth, imgHeight)
+                leftHeight -= pageHeight
+                position -= 841.89
+                if (leftHeight > 0) {
+                  PDF.addPage()
+                }
+              }
+            }
+            PDF.save('导出' + '.pdf')
+          })
         }
       },
       computed: {

@@ -46,14 +46,9 @@
                     <div>已答：{{answeredText}}</div>
                     <at-button type="primary" hollow @click="nextClicked">下一个</at-button>
                 </div>
-                <div style="float: right; width: 100px">
+                <div style="float: right; width: 140px">
                     <div class="name">危险源分类:</div>
-                    <at-select size="large" style="width: 100%" v-bind:value="evlType" v-on:input="evlType=$event">
-                        <at-option value="1">火灾</at-option>
-                        <at-option value="2">恐怖活动</at-option>
-                        <at-option value="3">自然灾害</at-option>
-                        <at-option value="4">人员疏散</at-option>
-                    </at-select>
+                    <at-input readonly style="width: 100%" :value="currentSourceType"/>
                 </div>
                 <div style="width: 400px; height: 100px; text-align: center; margin-left: auto; margin-right: auto; border: solid #c3d9ff; padding-top: 40px">
                     {{currentText}}
@@ -122,14 +117,11 @@
         checkbox1: [],
         checkbox2: [],
         checkbox3: [],
-        evlType: '1',
-        answeredText: '0/0'
+        answeredText: '0/0',
+        currentSourceType: '123'
       }
     },
     mounted () {
-      // var workbook = xlsx.parse(`${__dirname}/myFile.xlsx`)
-      // this.dataSource = workbook[0]['data']
-
       const wb = XLSX.readFile(`${__dirname}/Data.xlsx`)
       const ws = wb.Sheets[wb.SheetNames[0]]
       this.dataSource = XLSX.utils.sheet_to_json(ws)
@@ -163,6 +155,7 @@
       changePage (pageNum) {
         this.currentPageCount = pageNum
         this.currentText = this.currentDataSource[this.currentPageCount]['危险源']
+        this.currentSourceType = this.currentDataSource[this.currentPageCount]['分类一']
         var possibilityLevel = this.currentDataSource[this.currentPageCount].possibilityLevel
         if (possibilityLevel !== undefined) {
           this.checkbox1 = [this.radio1s[possibilityLevel]]
@@ -186,15 +179,8 @@
         this.$router.back('/')
       },
       onResultClick () {
-        // if (this.validated()) {
-        //   this.$store.commit('setEvlData', this.currentDataSource)
-        //   this.$router.push('/resultPage')
-        // }
         this.$store.commit('setEvlData', this.currentDataSource)
         this.$router.push('/resultPage')
-      },
-      validated () {
-        return this.answeredCount() === 10
       },
       currentDate () {
         return new Date().toISOString().slice(0, 10)
@@ -202,7 +188,7 @@
       refreshData () {
         var arr = this.dataSource.slice(2, this.dataSource.length)
         var result = []
-        var ranNum = 10
+        var ranNum = arr.length
         for (var i = 0; i < ranNum; i++) {
           var ran = Math.floor(Math.random() * (arr.length - i))
           result.push(arr[ran])
@@ -211,6 +197,7 @@
         this.currentDataSource = Object.assign([], result)
         this.pageCount = this.currentDataSource.length - 1
         this.currentText = this.currentDataSource[0]['危险源']
+        this.currentSourceType = this.currentDataSource[this.currentPageCount]['分类一']
         this.currentPageCount = 0
 
         this.answeredText = this.answeredCount() + '/' + this.currentDataSource.length
@@ -262,11 +249,6 @@
           case 2:
             return '演出管理'
         }
-      }
-    },
-    watch: {
-      evlType: function (newVal, oldVal) {
-        this.refreshData()
       }
     }
   }
