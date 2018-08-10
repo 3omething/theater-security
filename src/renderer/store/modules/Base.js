@@ -4,7 +4,10 @@ const state = {
   evlData: '',
   projectName: '',
   userName: '',
-  evlMethod: ''
+  evlMethod: '',
+  introBack: '',
+  descriptionBack: '',
+  certificationBack: ''
 }
 
 const mutations = {
@@ -28,6 +31,15 @@ const mutations = {
   },
   setEvlData (state, evlData) {
     state.evlData = evlData
+  },
+  setIntroBack (state, introBack) {
+    state.introBack = introBack
+  },
+  setDescriptionBack (state, descriptionBack) {
+    state.descriptionBack = descriptionBack
+  },
+  setCertificationBack (state, certificationBack) {
+    state.certificationBack = certificationBack
   }
 }
 
