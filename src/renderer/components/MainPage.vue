@@ -1,20 +1,20 @@
 <template>
     <el-container>
         <el-header>
-            <div style="float: left">
+            <div style="float: left; margin-top: 30px">
                 <img src="./icon_logo_bjut.png" style="width: 180px; height: 50px; left: 0px; top: 0px;"/>
             </div>
-            <div style="float: right; margin-top: 24px">
+            <div style="float: right; margin-top: 34px">
                 <input type="button" class="back-button" @click="back()" value="返回"/>
             </div>
             <div style="width: 100%; display: flex; justify-content: center; align-items: center; color: #666666">
-                <span style="font-size: 30px; margin-top: -30px">{{evlTypeText}}安全评估</span>
+                <span style="font-size: 50px; margin-top: -30px">{{evlTypeText}}安全评估</span>
             </div>
         </el-header>
 
         <el-main>
             <div>
-                <div style="width: 100%; height: 80px; padding-left: 10%; padding-right: 10%; margin-top: 5%">
+                <div style="width: 100%; height: 50px; padding-left: 7%; padding-right: 4%; margin-top: 5%">
                     <div style="float: left; width: 25%">
                         <div>项目名称:</div>
                         <at-input readonly style="width: 80%" :value="this.$store.state.Base.projectName"/>
@@ -32,7 +32,7 @@
                         <at-input readonly style="width: 80%" :value="currentDate()"/>
                     </div>
                 </div>
-                <div style="float: left; width: 200px; height: 300px; margin-left: 4%; margin-top: 5%">
+                <div style="float: left; width: 200px; height: 300px; margin-left: 4%; margin-top: 2%">
                     <div style="position: relative; float: right; top: 0px; height: 100%; width: 50%; right: 0px">
                         <div style="margin-top: 35%; text-align: center">共{{currentPageCount + 1}}页</div>
                         <div style="margin-top: 20%; text-align: center">已答：{{answeredText}}</div>
@@ -48,9 +48,9 @@
                 </div>
                 <div style="float: right; width: 180px; margin-right: 4%; margin-top: 5%">
                     <div style="">危险源分类:</div>
-                    <at-input readonly style="width: 100%" :value="currentSourceType"/>
+                    <at-input readonly style="width: 75%" :value="currentSourceType"/>
                 </div>
-                <div style="width: 500px; height: 300px; margin-left: auto; margin-right: auto; margin-top: 5%">
+                <div style="width: 500px; height: 300px; margin-left: auto; margin-right: auto; margin-top: 2%">
                     <div style="width: 100%; height: 50%; border: solid #339966; text-align: center; padding-top: 60px; margin-bottom: 20px; font-size: 20px">
                         {{currentText}}
                     </div>
@@ -80,7 +80,7 @@
                 </div>
             </div>
             <div style="width: 100%; height: 30%; bottom: 0px; left: 0px; right: 0px">
-                <div style="position: absolute; text-align: center; bottom: 0px; width: 100%; padding-bottom: 10px">
+                <div style="position: absolute; text-align: center; left: 0px; bottom: 20px; width: 100%; padding-bottom: 10px; color: black">
                     北京工业大学剧场设计与舞台技术研究所 2018.08
                 </div>
             </div>
@@ -116,7 +116,6 @@
       }
     },
     mounted () {
-      console.log(this.$store.state.Base.evlData[0])
       if (this.$store.state.Base.evlData !== '') {
         this.dataSource = this.$store.state.Base.evlData
         this.refreshData()
@@ -419,10 +418,8 @@
         color: white;
         padding: 4px 10px;
         text-align: center;
-        text-decoration: none;
-        display: inline-block;
         font-size: 16px;
-        cursor: pointer;
-        border-radius: 4px;
+        border-radius: 10px;
+        margin-top: 6px
     }
 </style>

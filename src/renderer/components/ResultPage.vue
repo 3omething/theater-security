@@ -1,37 +1,33 @@
 <template>
     <el-container>
         <el-header>
-            <div style="float: left">
+            <div style="float: left; margin-top: 30px">
                 <img src="./icon_logo_bjut.png" style="width: 180px; height: 50px; left: 0px; top: 0px;"/>
             </div>
-            <div style="float: right; margin-top: 24px">
+            <div style="float: right; margin-top: 40px">
                 <input type="button" class="info-button" @click="back()" value="返回"/>
                 <input type="button" class="info-button" @click="onExportClicked()" value="导出"/>
             </div>
             <div style="width: 100%; display: flex; justify-content: center; align-items: center; color: #666666">
-                <span style="font-size: 30px; margin-top: -20px">《演出风险评估表》</span>
+                <span style="font-size: 50px; margin-top: -30px">《演出风险评估表》</span>
             </div>
         </el-header>
-        <el-main style="position: absolute; height: 100%; width: 100%; top: 10%">
-            <div style="width: 100%; height: 70px; padding-left: 10%; padding-right: 10%">
+        <el-main style="position: absolute; width: 100%; top: 18%; bottom: 0px">
+            <div style="width: 100%; height: 40px; padding-left: 3%; padding-right: 3%">
                 <div style="float: left; width: 25%">
-                    <div>项目名称:</div>
-                    <at-input readonly style="width: 80%" :value="this.$store.state.Base.projectName"/>
+                    <div style="float: left">项目名称: {{this.$store.state.Base.projectName}}</div>
                 </div>
                 <div style="float: left; width: 25%">
-                    <div>评 估 人:</div>
-                    <at-input readonly style="width: 80%" :value="this.$store.state.Base.userName"/>
+                    <div>评 估 人: {{this.$store.state.Base.userName}}</div>
                 </div>
                 <div style="float: left; width: 25%">
-                    <div>巡查方法:</div>
-                    <at-input readonly style="width: 80%" :value="this.$store.state.Base.evlMethod"/>
+                    <div>巡查方法: {{this.$store.state.Base.evlMethod}}</div>
                 </div>
                 <div style="float: left; width: 25%">
-                    <div>评估时间:</div>
-                    <at-input readonly style="width: 80%" :value="currentDate()"/>
+                    <div>评估时间: {{currentDate()}}</div>
                 </div>
             </div>
-            <div style="width: 100%; height: 60%; background-color: white">
+            <div style="margin-top: -10px; margin-left: 3%; width: 94%; height: 60%; background-color: white">
                 <scroller style="position: relative">
                     <table-component :data=data1 :show-filter="false" id="pdfDom">
                         <table-column show="firstName" label="危险/潜在伤害" cellClass="column1"></table-column>
@@ -47,43 +43,43 @@
                     </table-component>
                 </scroller>
             </div>
-            <div style="width: 100%; height: 10%; padding-top: 10px">
+            <div style="margin-left: 3%; width: 100%; height: 10%; padding-top: 20px">
                 <div style="float: left; top: 0px; left: 0px; height: 100%; width: 10%;">
-                    <div style="text-align: right">事故可能性:</div>
-                    <div style="text-align: right; margin-top: 3px">事故严重性:</div>
-                    <div style="text-align: right; margin-top: 3px">评估结果:</div>
+                    <div style="">事故可能性:</div>
+                    <div style="margin-top: 3px">事故严重性:</div>
+                    <div style="margin-top: 3px">评估结果:</div>
                 </div>
                 <div style="float: right; top: 0px; left: 20%; height: 100%; width: 90%">
                     <el-checkbox-group>
-                        <el-checkbox-button class="radio1Level0_a" label="1"></el-checkbox-button>
-                        <el-checkbox-button class="radio1Level1_a" label="2"></el-checkbox-button>
-                        <el-checkbox-button class="radio1Level2_a" label="3"></el-checkbox-button>
-                        <el-checkbox-button class="radio1Level3_a" label="4"></el-checkbox-button>
-                        <el-checkbox-button class="radio1Level4_a" label="5"></el-checkbox-button>
+                        <el-checkbox-button class="radio1Level0_a" label="I"></el-checkbox-button>
+                        <el-checkbox-button class="radio1Level1_a" label="II"></el-checkbox-button>
+                        <el-checkbox-button class="radio1Level2_a" label="III"></el-checkbox-button>
+                        <el-checkbox-button class="radio1Level3_a" label="IV"></el-checkbox-button>
+                        <el-checkbox-button class="radio1Level4_a" label="V"></el-checkbox-button>
                         <div style="position: absolute; width: 500px; height: 50px; margin-top: -50px"></div>
                     </el-checkbox-group>
                     <el-checkbox-group>
-                        <el-checkbox-button class="radio2Level0_a" label="1"></el-checkbox-button>
-                        <el-checkbox-button class="radio2Level1_a" label="2"></el-checkbox-button>
-                        <el-checkbox-button class="radio2Level2_a" label="3"></el-checkbox-button>
-                        <el-checkbox-button class="radio2Level3_a" label="4"></el-checkbox-button>
-                        <el-checkbox-button class="radio2Level4_a" label="5"></el-checkbox-button>
+                        <el-checkbox-button class="radio2Level0_a" label="I"></el-checkbox-button>
+                        <el-checkbox-button class="radio2Level1_a" label="II"></el-checkbox-button>
+                        <el-checkbox-button class="radio2Level2_a" label="III"></el-checkbox-button>
+                        <el-checkbox-button class="radio2Level3_a" label="IV"></el-checkbox-button>
+                        <el-checkbox-button class="radio2Level4_a" label="V"></el-checkbox-button>
                         <div style="position: absolute; width: 500px; height: 50px; margin-top: -50px"></div>
                     </el-checkbox-group>
                     <el-checkbox-group>
-                        <el-checkbox-button class="radio3Level0_a" label="1"></el-checkbox-button>
-                        <el-checkbox-button class="radio3Level1_a" label="2"></el-checkbox-button>
-                        <el-checkbox-button class="radio3Level2_a" label="3"></el-checkbox-button>
+                        <el-checkbox-button class="radio3Level0_a" label="I"></el-checkbox-button>
+                        <el-checkbox-button class="radio3Level1_a" label="II"></el-checkbox-button>
+                        <el-checkbox-button class="radio3Level2_a" label="III"></el-checkbox-button>
                         <div style="position: absolute; width: 500px; height: 50px; margin-top: -50px"></div>
                     </el-checkbox-group>
                 </div>
             </div>
-        </el-main>
-        <div style="width: 100%; height: 30%; bottom: 0px; left: 0px; right: 0px">
-            <div style="position: absolute; text-align: center; bottom: 0px; width: 100%; padding-bottom: 10px">
-                北京工业大学剧场设计与舞台技术研究所 2018.08
+            <div style="width: 100%; height: 50px; bottom: 0px; left: 0px; right: 0px">
+                <div style="position: absolute; text-align: center; left: 0px; bottom: 20px; width: 100%; padding-bottom: 10px; color: black">
+                    北京工业大学剧场设计与舞台技术研究所 2018.08
+                </div>
             </div>
-        </div>
+        </el-main>
     </el-container>
 </template>
 
@@ -157,7 +153,7 @@
                 }
               }
             }
-            PDF.save('导出' + '.pdf')
+            PDF.save(this.$store.state.Base.projectName + '.pdf')
           })
         },
         currentDate () {
@@ -305,81 +301,81 @@
     .el-checkbox-button.radio1Level0_a .el-checkbox-button__inner {
         background-color: green;
         color: black;
-        width: 100px;
+        width: 120px;
         padding: 2px 0px;
     }
     .el-checkbox-button.radio1Level1_a .el-checkbox-button__inner {
         background-color: greenyellow;
         color: black;
-        width: 100px;
+        width: 120px;
         padding: 2px 0;
     }
     .el-checkbox-button.radio1Level2_a .el-checkbox-button__inner {
         background-color: yellow;
         color: black;
-        width: 100px;
+        width: 120px;
         padding: 2px 0;
     }
     .el-checkbox-button.radio1Level3_a .el-checkbox-button__inner {
         background-color: orange;
         color: black;
-        width: 100px;
+        width: 120px;
         padding: 2px 0;
     }
     .el-checkbox-button.radio1Level4_a .el-checkbox-button__inner {
         background-color: red;
         color: black;
-        width: 100px;
+        width: 120px;
         padding: 2px 0;
     }
 
     .el-checkbox-button.radio2Level0_a .el-checkbox-button__inner {
         background-color: green;
         color: black;
-        width: 100px;
+        width: 120px;
         padding: 2px 0;
     }
     .el-checkbox-button.radio2Level1_a .el-checkbox-button__inner {
         background-color: greenyellow;
         color: black;
-        width: 100px;
+        width: 120px;
         padding: 2px 0;
     }
     .el-checkbox-button.radio2Level2_a .el-checkbox-button__inner {
         background-color: yellow;
         color: black;
-        width: 100px;
+        width: 120px;
         padding: 2px 0;
     }
     .el-checkbox-button.radio2Level3_a .el-checkbox-button__inner {
         background-color: orange;
         color: black;
-        width: 100px;
+        width: 120px;
         padding: 2px 0;
     }
     .el-checkbox-button.radio2Level4_a .el-checkbox-button__inner {
         background-color: red;
         color: black;
-        width: 100px;
+        width: 120px;
         padding: 2px 0;
     }
 
     .el-checkbox-button.radio3Level0_a .el-checkbox-button__inner {
         background-color: green;
         color: black;
-        width: 166.67px;
+        width: 200px;
         padding: 2px 0;
     }
     .el-checkbox-button.radio3Level1_a .el-checkbox-button__inner {
         background-color: yellow;
         color: black;
-        width: 166.67px;
+        width: 200px;
         padding: 2px 0;
     }
     .el-checkbox-button.radio3Level2_a .el-checkbox-button__inner {
         background-color: red;
         color: black;
-        width: 166.67px;
+        width: 200px;
         padding: 2px 0;
     }
 </style>

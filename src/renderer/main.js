@@ -16,8 +16,8 @@ import VueScroller from 'vue-scroller'
 
 Vue.component('table-component', TableComponent)
 Vue.component('table-column', TableColumn)
-Vue.use(VueScroller)
 
+Vue.use(VueScroller)
 Vue.use(AtComponents)
 Vue.use(ElementUI)
 

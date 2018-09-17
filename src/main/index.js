@@ -22,11 +22,13 @@ function createWindow () {
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    height: 768,
+    height: 640,
     useContentSize: true,
     width: 1024,
     minWidth: 1024,
-    minHeight: 768,
+    minHeight: 640,
+    maxWidth: 1024,
+    maxHeight: 640,
     icon: path.join(__dirname, '../renderer/assets/ta_icon.icns')
   })
 

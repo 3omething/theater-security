@@ -1,24 +1,24 @@
 <template>
     <el-container>
         <el-header>
-            <div style="width: 100%; display: flex; justify-content: center; align-items: center">
-                <span style="color: #66cc99; font-size: 16px">《演出安全管理体系》</span>
+            <div style="padding-top: 20px; width: 100%; display: flex; justify-content: center; align-items: center">
+                <span style="color: #66cc99; font-size: 20px">《演出安全管理体系》</span>
             </div>
-            <div style="float: left">
+            <div style="float: left; margin-top: -20px">
                 <img src="./icon_logo_bjut.png" style="width: 180px; height: 50px; left: 0px; top: 0px;"/>
             </div>
 
-            <div style="float: right">
+            <div style="float: right; margin-top: -10px">
                 <input type="button" class="info-button" @click="onTipClick()" value="说明"/>
             </div>
 
             <div style="width: 100%; display: flex; justify-content: center; align-items: center; color: #666666">
-                <span style="font-size: 30px; margin-top: -30px">演出安全评估</span>
+                <span style="font-size: 50px; margin-top: -30px">演出安全评估</span>
             </div>
         </el-header>
         <el-main>
-            <div style="padding-top: 2%">
-                <div style="position: absolute; width: 50%; height: 60%; left: 0px">
+            <div style="padding-top: 4%">
+                <div style="position: absolute; width: 50%; height: 50%; left: 0px">
                     <div style="position: absolute; width: 100%; height: 2%; top: 0px; right: 0px; left: 0px; background-color: #339966"></div>
                     <div style="margin-top: 8%; width: 300px; float: right">
                         <div>
@@ -39,12 +39,12 @@
                         </div>
                     </div>
                     <div style="position: absolute; width: 2px; height: 100%; top: 0px; bottom: 0px; right: 0px; background-color: #339966"></div>
-                    <div style="position: absolute; left: 60%; right: 0px; height: 2px; bottom: 0px; background-color: #339966"></div>
-                    <div style="position: absolute; width: 2px; left: 60%; height: 20px; bottom: -20px; background-color: #339966"></div>
+                    <div style="position: absolute; left: 42%; right: 0px; height: 2px; bottom: 20%; background-color: #339966"></div>
+                    <div style="position: absolute; width: 2px; left: 42%; height: 36%; bottom: -50px; background-color: #339966"></div>
                 </div>
-                <div style="position: absolute; width: 50%; height: 60%; right: 0px">
+                <div style="position: absolute; width: 50%; height: 50%; right: 0px">
                     <div style="position: absolute; width: 100%; height: 2%; top: 0px; right: 0px; left: 0px; background-color: #339966"></div>
-                    <div style="position: absolute; width: 2px; right: 100%; height: 20px; bottom: -20px; background-color: #339966"></div>
+                    <div style="position: absolute; width: 2px; right: 100%; height: 60px; bottom: -50px; background-color: #339966"></div>
                     <div style="margin-top: 8%; width: 300px">
                         <div>
                             <div style="padding-left: 50px">巡查方法:</div>
@@ -59,16 +59,16 @@
                             <at-input readonly style="width: 140px; left: 50px" :value="currentDate()"/>
                         </div>
                     </div>
-                    <div style="position: absolute; left: 0px; right: 0px; height: 2px; bottom: 0px; background-color: #339966; margin-right: 60%"></div>
-                    <div style="position: absolute; width: 2px; right: 60%; height: 20px; bottom: -20px; background-color: #339966"></div>
+                    <div style="position: absolute; left: 0px; right: 0px; height: 2px; bottom: 20%; background-color: #339966; margin-right: 42%"></div>
+                    <div style="position: absolute; width: 2px; right: 42%; height: 36%; bottom: -50px; background-color: #339966"></div>
                 </div>
-                <div style="position: absolute; width: 100%; height: 20%; bottom: 0px; left: 0px; right: 0px">
+                <div style="position: absolute; width: 100%; height: 24%; bottom: 0px; left: 0px; right: 0px">
                     <div style="display: flex; justify-content: center; align-items: center">
-                        <input type="button" class="info-button" value="剧场建筑安全" @click="onEvlClick(0)"/>
+                        <input type="button" class="info-side-button" value="剧场建筑安全" @click="onEvlClick(0)"/>
                         <input type="button" class="info-center-button" value="舞台设备安全" @click="onEvlClick(1)"/>
-                        <input type="button" class="info-button" value="演出管理安全" @click="onEvlClick(2)"/>
+                        <input type="button" class="info-side-button" value="演出管理安全" @click="onEvlClick(2)"/>
                     </div>
-                    <div style="position: absolute; text-align: center; bottom: 0px; width: 100%; padding-bottom: 10px; color: #000000;">
+                    <div style="position: absolute; text-align: center; left: 0px; bottom: 20px; width: 100%; padding-bottom: 10px; color: black">
                         北京工业大学剧场设计与舞台技术研究所 2018.08
                     </div>
                 </div>
@@ -204,12 +204,19 @@
         color: white;
         padding: 4px 10px;
         text-align: center;
-        text-decoration: none;
-        display: inline-block;
         font-size: 16px;
-        cursor: pointer;
-        border-radius: 4px;
-
+        border-radius: 10px;
+    }
+    .info-side-button {
+        background-color: #339966;
+        border: none;
+        color: white;
+        padding: 4px 10px;
+        text-align: center;
+        font-size: 30px;
+        border-radius: 10px;
+        width: 200px;
+        height: 60px;
     }
     .info-center-button {
         background-color: #339966;
@@ -217,13 +224,12 @@
         color: white;
         padding: 4px 10px;
         text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        cursor: pointer;
-        border-radius: 4px;
+        font-size: 30px;
+        border-radius: 10px;
         margin-left: 10%;
         margin-right: 10%;
+        width: 200px;
+        height: 60px;
     }
     body {
         background-image: url("bg_bw.png");
